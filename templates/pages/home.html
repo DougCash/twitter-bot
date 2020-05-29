@@ -7,18 +7,37 @@
 {% block content %}
 Welcome to my Twitter-Clone
 
+<div id='tweets'>
+    Loading...
+</div>
+
 <script>
+    const tweetsElement = document.getElementById("tweets") //Get HTML Element
+    //tweetsElement.innerHTML = "Loading..."  //Set Content
+
     const xhr = new XMLHttpRequest()
     const method = "GET" // "POST"
     const url = "/tweets"
     const responseType = "json"
+
+    function formatTweetElement(tweet){
+        var formattedTweet = "<div class='mb-4 tweet' id=tweet-'" + tweet.id + "'><p>" + tweet.content + "</p></div>"
+        return formattedTweet
+    }
 
     xhr.responseType = responseType
     xhr.open(method, url)
     xhr.onload = function(){
         const serverResponse = xhr.response
         var listedItems = serverResponse.response
-        console.log(listedItems)
+        var finalTweetStr = ""
+        var i;
+        for (i=0; i<listedItems.length; i++){
+            var tweetObj = listedItems[i]
+            var currentItem = formatTweetElement(tweetObj)
+            finalTweetStr += currentItem
+        }
+        tweetsElement.innerHTML = finalTweetStr
     }
     xhr.send()
 </script>
