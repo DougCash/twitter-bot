@@ -29,6 +29,7 @@ DEBUG = True
 ALLOWED_HOSTS = ["127.0.0.1"]
 LOGIN_URL = "/login"
 MAX_TWEET_LENGTH = 240
+TWEET_ACTION_OPTIONS = ["like", "unlike", "retweet"]
 
 # Application definition
 
@@ -134,7 +135,8 @@ if DEBUG:
 
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": [
-        'rest_framework.authentication.SessionAuthentication'
+        'rest_framework.authentication.SessionAuthentication',
+       'rest_framework.authentication.TokenAuthentication',
         ],
     "DEFAULT_RENDERER_CLASSES": DEFAULT_RENDERER_CLASSES
 }
